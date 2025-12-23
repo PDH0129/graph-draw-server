@@ -4,3 +4,4 @@ requests
 groq
 python-multipart
 sympy
+latex2sympy2
