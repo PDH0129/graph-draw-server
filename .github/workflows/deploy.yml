@@ -1,16 +1,15 @@
-name: Run FastAPI Server
+name: Deploy FastAPI
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  run-server:
+  run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -19,10 +18,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r graph-draw-server/requirements.txt
+          pip install -r requirements.txt
 
-      - name: Run server (test)
+      - name: Run FastAPI (test)
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
-          python graph-draw-server/main.py
+          python main.py
