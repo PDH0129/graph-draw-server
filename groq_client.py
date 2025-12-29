@@ -1,15 +1,10 @@
 import os
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 import base64
 import requests
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
-
-# ======================
-# 여기에 API 키 박아라
-# ======================
-
-GROQ_API_KEY = "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"
 
 # ======================
 # 설정
