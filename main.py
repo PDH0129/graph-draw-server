@@ -113,6 +113,9 @@ async def handwriting_ocr(image: UploadFile = File(...)):
         })
 
     except Exception as e:
+        print("🔥 HANDWRITING ERROR 🔥")
+        traceback.print_exc()   # ⭐ 이게 핵심
+        raise HTTPException(status_code=500, detail=str(e))
         return JSONResponse(
             status_code=500,
             content={
