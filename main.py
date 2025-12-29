@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from groq_client import handwriting_to_latex
-
+import traceback
 from sympy import symbols, integrate, diff, solve
 from latex2sympy2 import latex2sympy
 
