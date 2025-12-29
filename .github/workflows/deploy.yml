@@ -1,15 +1,21 @@
-name: Deploy FastAPI
+name: Deploy FastAPI Server
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  run:
+  deploy:
     runs-on: ubuntu-latest
 
+    # ⭐️ 여기서 Secrets → 환경변수로 주입
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -18,10 +24,14 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run FastAPI (test)
-        env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      # ⚠️ 여기서는 서버를 "실행"하지 않음
+      # (Actions는 배포 서버가 아님)
+      - name: Check environment
         run: |
-          python main.py
+          python - << 'EOF'
+          import os
+          print("GROQ_API_KEY exists:", bool(os.getenv("GROQ_API_KEY")))
+          EOF
